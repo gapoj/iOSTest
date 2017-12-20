@@ -11,19 +11,23 @@ import SwiftyJSON
 struct Repository {
     let id: Int
     let fullName: String
-    let description: String
+    let desc: String
     let language: String?
-//    let stargazers: Int
+    let stargazers: Int
 //    let forks: Int
     let owner: Owner
-
+}
+    /// Mark: - extension Repository
+    /// Put init functions inside extension so default constructor
+    /// for the struct is created
+extension Repository {
     init(json: JSON) {
         
          id = json["id"].intValue
          fullName = json["full_name"].stringValue
-         description = json["description"].stringValue
+         desc = json["description"].stringValue
          language = json["language"].string
-//        let stargazers = json["stargazers_count"].intValue
+        stargazers = json["stargazers_count"].intValue
 //        let forks = json["forks"].intValue
         owner = Owner(json:json["owner"])
         
