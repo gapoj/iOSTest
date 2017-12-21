@@ -11,18 +11,16 @@ import SwiftyJSON
 
 struct Owner {
     let name: String
-    let imageURL: NSURL
-    let url: NSURL
+    let imageURL: String
+    let url: String
 }
     /// Mark: - extension Owner
     /// Put init functions inside extension so default constructor
     /// for the struct is created
     extension Owner {
     init(json: JSON) {
-        imageURL = NSURL(string:json["avatar_url"].stringValue)!
+        imageURL = json["avatar_url"].stringValue
         name = json["login"].stringValue
-        url = NSURL(string:json["url"].stringValue)!
-        
-        
-    }
+        url = json["url"].stringValue
+     }
 }

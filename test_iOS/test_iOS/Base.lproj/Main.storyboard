@@ -85,7 +85,7 @@
                         <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="7DG-tW-0qZ">
+                            <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="user-filled" translatesAutoresizingMaskIntoConstraints="NO" id="7DG-tW-0qZ">
                                 <rect key="frame" x="137" y="94" width="101" height="100"/>
                                 <constraints>
                                     <constraint firstAttribute="width" secondItem="7DG-tW-0qZ" secondAttribute="height" multiplier="1:1" constant="1" id="dMy-ru-oha"/>
@@ -104,29 +104,25 @@
                                 <nil key="textColor"/>
                                 <nil key="highlightedColor"/>
                             </label>
-                            <wkWebView contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="iLh-5I-TjY">
-                                <rect key="frame" x="0.0" y="326" width="375" height="341"/>
-                                <color key="backgroundColor" red="0.36078431370000003" green="0.38823529410000002" blue="0.4039215686" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
-                                <wkWebViewConfiguration key="configuration">
-                                    <audiovisualMediaTypes key="mediaTypesRequiringUserActionForPlayback" none="YES"/>
-                                    <wkPreferences key="preferences"/>
-                                </wkWebViewConfiguration>
-                            </wkWebView>
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="fsN-SA-EZV" customClass="MarkdownView" customModule="MarkdownView">
+                                <rect key="frame" x="0.0" y="322" width="375" height="335"/>
+                                <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                            </view>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                         <constraints>
+                            <constraint firstItem="fsN-SA-EZV" firstAttribute="top" secondItem="NBe-3r-uuY" secondAttribute="bottom" constant="26" id="1je-0M-YcP"/>
+                            <constraint firstItem="fsN-SA-EZV" firstAttribute="leading" secondItem="u4W-dY-TSu" secondAttribute="leading" id="4GS-01-q1k"/>
                             <constraint firstItem="z0s-41-OTy" firstAttribute="trailing" secondItem="u4W-dY-TSu" secondAttribute="trailing" id="BBj-sH-U1S"/>
-                            <constraint firstItem="iLh-5I-TjY" firstAttribute="leading" secondItem="u4W-dY-TSu" secondAttribute="leading" id="H0D-bB-abw"/>
+                            <constraint firstItem="fsN-SA-EZV" firstAttribute="trailing" secondItem="u4W-dY-TSu" secondAttribute="trailing" id="C14-Sx-3ZD"/>
                             <constraint firstItem="7DG-tW-0qZ" firstAttribute="centerX" secondItem="46Y-6k-pTB" secondAttribute="centerX" id="HFu-ZA-4Pr"/>
                             <constraint firstItem="z0s-41-OTy" firstAttribute="leading" secondItem="u4W-dY-TSu" secondAttribute="leading" id="al6-8a-dlB"/>
-                            <constraint firstItem="u4W-dY-TSu" firstAttribute="bottom" secondItem="iLh-5I-TjY" secondAttribute="bottom" id="cXp-mw-ijF"/>
                             <constraint firstItem="NBe-3r-uuY" firstAttribute="top" secondItem="z0s-41-OTy" secondAttribute="bottom" constant="30" id="d54-ua-oUY"/>
-                            <constraint firstItem="iLh-5I-TjY" firstAttribute="top" secondItem="NBe-3r-uuY" secondAttribute="bottom" constant="30" id="eZz-nz-xac"/>
-                            <constraint firstItem="u4W-dY-TSu" firstAttribute="trailing" secondItem="iLh-5I-TjY" secondAttribute="trailing" id="hnX-ZH-667"/>
                             <constraint firstItem="NBe-3r-uuY" firstAttribute="trailing" secondItem="z0s-41-OTy" secondAttribute="trailing" id="qJe-sN-V7i"/>
                             <constraint firstItem="7DG-tW-0qZ" firstAttribute="top" secondItem="u4W-dY-TSu" secondAttribute="top" constant="30" id="qmV-km-wcE"/>
                             <constraint firstAttribute="width" secondItem="z0s-41-OTy" secondAttribute="width" id="rd6-st-ygg"/>
                             <constraint firstItem="NBe-3r-uuY" firstAttribute="leading" secondItem="z0s-41-OTy" secondAttribute="leading" id="xxm-jv-5MD"/>
+                            <constraint firstItem="u4W-dY-TSu" firstAttribute="bottom" secondItem="fsN-SA-EZV" secondAttribute="bottom" constant="10" id="ypl-vj-XJU"/>
                             <constraint firstItem="z0s-41-OTy" firstAttribute="top" secondItem="7DG-tW-0qZ" secondAttribute="bottom" constant="30" id="ytp-1I-AbE"/>
                         </constraints>
                         <viewLayoutGuide key="safeArea" id="u4W-dY-TSu"/>
@@ -140,15 +136,15 @@
                         </barButtonItem>
                     </navigationItem>
                     <connections>
+                        <outlet property="mdview" destination="fsN-SA-EZV" id="STH-X3-5Jj"/>
                         <outlet property="ownerImage" destination="7DG-tW-0qZ" id="1yM-BA-ajF"/>
                         <outlet property="ownerNameLbl" destination="z0s-41-OTy" id="K0W-j3-et2"/>
                         <outlet property="projectDescriptionlbl" destination="NBe-3r-uuY" id="nBa-UM-nOI"/>
-                        <outlet property="readMeWV" destination="iLh-5I-TjY" id="x8c-u8-kfo"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="fyA-E8-RgM" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="3913" y="-35"/>
+            <point key="canvasLocation" x="3912.8000000000002" y="-35.532233883058474"/>
         </scene>
         <!--Navigation Controller-->
         <scene sceneID="fRd-2S-tua">
@@ -191,4 +187,7 @@
             <point key="canvasLocation" x="2654.4000000000001" y="-64.767616191904054"/>
         </scene>
     </scenes>
+    <resources>
+        <image name="user-filled" width="25" height="25"/>
+    </resources>
 </document>

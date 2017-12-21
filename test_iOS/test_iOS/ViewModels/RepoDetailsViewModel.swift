@@ -8,7 +8,10 @@
 import UIKit
 
 class   RepoDetailsViewModel {
+    let appServerClient: AppServerClient = AppServerClient()
     var repo: Repository
+     var readmeStr = Bindable(String())
+    var ownerImage = Bindable(#imageLiteral(resourceName: "user-filled"))
     var projectName: String {
         return repo.fullName
     }
@@ -21,19 +24,29 @@ class   RepoDetailsViewModel {
     var forksNumber: String {
         return "\(repo.forks) Forks"
     }
-    var readMeURL: URL? {
-        let stringUrl = repo.htmlUrl + "/blob/master/README.md"
-        guard let url = URL(string: stringUrl) else{
-            return nil
-            
-        }
-        return url
-    }
     var ownerName: String {
         return repo.owner.name
     }
     init(withRepo repository: Repository) {
         repo = repository
+    }
+    
+    func getReadMe(){
+        appServerClient.getReadMe(owner: ownerName, repoName: repo.reponame, success: { [weak self](string) in
+            self?.readmeStr.value = string
+        }) { (error) in
+            //In this chase I want the app to fail silently
+            print("error")
+        }
+        
+    }
+    func getAvatar(){
+        appServerClient.getAvatar(url: repo.owner.imageURL, success: { [weak self](img) in
+            self?.ownerImage.value = img
+        }) { (error) in
+            //In this chase I want the app to fail silently
+            print("error")
+        }
     }
 }
 

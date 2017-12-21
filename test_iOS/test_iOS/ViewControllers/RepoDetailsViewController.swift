@@ -8,20 +8,28 @@
 
 import UIKit
 import WebKit
+import MarkdownView
 
 class RepoDetailsViewController: UIViewController {
 
-    @IBOutlet weak var readMeWV: WKWebView!
+    @IBOutlet weak var mdview: MarkdownView!
     @IBOutlet weak var projectDescriptionlbl: UILabel!
     @IBOutlet weak var ownerNameLbl: UILabel!
     @IBOutlet weak var ownerImage: UIImageView!
     var viewModel: RepoDetailsViewModel?
-  
+   
     override func viewDidLoad() {
         super.viewDidLoad()
+        viewModel?.getReadMe()
+        viewModel?.getAvatar()
         bindViewModel()
   }
-
+    override func viewDidLayoutSubviews() {
+        //crop the image to a circle
+        ownerImage.layer.cornerRadius = ownerImage.frame.size.width/2
+        ownerImage.clipsToBounds = true
+        
+    }
     
     @IBAction func backBtnAction(_ sender: Any) {
         dismiss(animated: true
@@ -31,9 +39,17 @@ class RepoDetailsViewController: UIViewController {
     private func bindViewModel() {
         ownerNameLbl.text = viewModel?.ownerName
         projectDescriptionlbl.text = viewModel?.repoDescription
-        if let readMeURL = viewModel?.readMeURL {
-            let myRequest = URLRequest(url:readMeURL)
-            readMeWV.load(myRequest)
+        viewModel?.readmeStr.bindAndFire(){ [weak self](str) in
+            DispatchQueue.main.async {
+                self?.mdview.load(markdown:str)
+            }
+        }
+        viewModel?.ownerImage.bindAndFire() { [weak self](img) in
+            DispatchQueue.main.async {
+                self?.ownerImage.image = img
+                self?.ownerImage.setNeedsLayout()
+                self?.ownerImage.layoutIfNeeded()
+            }
         }
         self.navigationItem.title = viewModel?.projectName
     }

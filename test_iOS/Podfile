@@ -6,4 +6,5 @@ target 'test_iOS' do
   pod 'Alamofire'
   pod 'SwiftyJSON'
   pod 'MBProgressHUD'
+  pod 'MarkdownView'
 end

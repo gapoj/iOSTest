@@ -11,6 +11,7 @@ import SwiftyJSON
 struct Repository {
     let id: Int
     let fullName: String
+    let reponame: String
     let desc: String
     let language: String?
     let stargazers: Int
@@ -30,7 +31,7 @@ extension Repository {
          language = json["language"].string
         stargazers = json["stargazers_count"].intValue
         forks = json["forks"].intValue
-       
+       reponame = json["name"].stringValue
         
         owner = Owner(json:json["owner"])
        
