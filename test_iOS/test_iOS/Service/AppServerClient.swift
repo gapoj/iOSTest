@@ -28,14 +28,15 @@ class AppServerClient {
                 case .success:
                     if let value = response.result.value {
                         // handle the results as JSON, without a bunch of nested if loops
-                        let data:[JSON] = JSON(value)["items"].array!
-                        // print(data)
-                        var clients:Array = Array<Repository>()
-                        
+                       var clients:Array = Array<Repository>()
+                        if  let data:[JSON] = JSON(value)["items"].array {
+                         
                         for json in data
                         {
-                            let model = Repository(json: json)
+                            if let model = Repository(json: json){
                             clients.append(model)
+                            }
+                        }
                         }
                         success(clients)
                     }
