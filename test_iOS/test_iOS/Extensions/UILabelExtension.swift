@@ -11,7 +11,7 @@ import UIKit
 extension UILabel {
     func setGrayBorder(){
         layer.borderColor = UIColor.lightGray.cgColor
-        layer.borderWidth = 0.5
-        layer.cornerRadius = 4
+        layer.borderWidth = 1
+        layer.cornerRadius = 2
     }
 }

@@ -17,30 +17,15 @@ class   RepoDetailsViewModel {
         return repo.fullName
     }
     var starsNumber:  NSMutableAttributedString {
-        let attachment = NSTextAttachment()
-        attachment.image = #imageLiteral(resourceName: "star")
-        attachment.bounds = CGRect(x: 0, y: 0, width: imageSide, height:imageSide)
-        let attachmentStr = NSAttributedString(attachment: attachment)
-        let myString = NSMutableAttributedString(string: "")
-        myString.append(attachmentStr)
-        let myString1 = NSMutableAttributedString(string: "\(repo.stargazers) Stars")
-        myString.append(myString1)
-        return myString
+      
+        return createAttributedString(withImage: #imageLiteral(resourceName: "star"), andText: "\(repo.stargazers) Stars")
     }
     
     var repoDescription: String {
         return repo.desc
     }
     var forksNumber: NSMutableAttributedString {
-        let attachment = NSTextAttachment()
-        attachment.image = #imageLiteral(resourceName: "fork")
-        attachment.bounds = CGRect(x: 0, y: 0, width: imageSide, height:imageSide )
-        let attachmentStr = NSAttributedString(attachment: attachment)
-        let myString = NSMutableAttributedString(string: "")
-        myString.append(attachmentStr)
-        let myString1 = NSMutableAttributedString(string: "\(repo.forks) Forks")
-        myString.append(myString1)
-        return myString
+         return createAttributedString(withImage: #imageLiteral(resourceName: "fork"), andText: "\(repo.forks) Forks")
     }
     var ownerName: String {
         return repo.owner.name
@@ -65,6 +50,18 @@ class   RepoDetailsViewModel {
             //In this chase I want the app to fail silently
             print("error")
         }
+    }
+    
+    func createAttributedString(withImage image: UIImage, andText text: String ) -> NSMutableAttributedString {
+        let attachment = NSTextAttachment()
+        attachment.image = image
+        attachment.bounds = CGRect(x: 0, y: -5, width: imageSide, height:imageSide)
+        let attachmentStr = NSAttributedString(attachment: attachment)
+        let myString = NSMutableAttributedString(string: "")
+        myString.append(attachmentStr)
+        let myString1 = NSMutableAttributedString(string: text)
+        myString.append(myString1)
+        return myString
     }
 }
 
