@@ -16,6 +16,9 @@ class RepoDetailsViewController: UIViewController {
     @IBOutlet weak var projectDescriptionlbl: UILabel!
     @IBOutlet weak var ownerNameLbl: UILabel!
     @IBOutlet weak var ownerImage: UIImageView!
+    @IBOutlet weak var starsLbl: UILabel!
+    @IBOutlet weak var forksLbl: UILabel!
+    
     var viewModel: RepoDetailsViewModel?
    
     override func viewDidLoad() {
@@ -37,6 +40,10 @@ class RepoDetailsViewController: UIViewController {
     }
     
     private func bindViewModel() {
+        starsLbl.attributedText = viewModel?.starsNumber
+        starsLbl.setGrayBorder()
+        forksLbl.attributedText = viewModel?.forksNumber
+        forksLbl.setGrayBorder()
         ownerNameLbl.text = viewModel?.ownerName
         projectDescriptionlbl.text = viewModel?.repoDescription
         viewModel?.readmeStr.bindAndFire(){ [weak self](str) in

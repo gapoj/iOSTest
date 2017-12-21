@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		187A42C51FEC6162002D3AB1 /* UILabelExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 187A42C41FEC6162002D3AB1 /* UILabelExtension.swift */; };
 		18820A2F1FE984B100C01B20 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 18820A2E1FE984B100C01B20 /* AppDelegate.swift */; };
 		18820A311FE984B100C01B20 /* TrendingViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 18820A301FE984B100C01B20 /* TrendingViewController.swift */; };
 		18820A341FE984B100C01B20 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 18820A321FE984B100C01B20 /* Main.storyboard */; };
@@ -27,6 +28,7 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		187A42C41FEC6162002D3AB1 /* UILabelExtension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UILabelExtension.swift; sourceTree = "<group>"; };
 		18820A2B1FE984B100C01B20 /* test_iOS.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = test_iOS.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		18820A2E1FE984B100C01B20 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		18820A301FE984B100C01B20 /* TrendingViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TrendingViewController.swift; sourceTree = "<group>"; };
@@ -147,6 +149,7 @@
 			isa = PBXGroup;
 			children = (
 				18BBAD291FEADDB0004BCDE0 /* UIViewControllerExtension.swift */,
+				187A42C41FEC6162002D3AB1 /* UILabelExtension.swift */,
 			);
 			path = Extensions;
 			sourceTree = "<group>";
@@ -304,6 +307,7 @@
 				18BBAD2F1FEAFB26004BCDE0 /* RepoDetailsViewController.swift in Sources */,
 				18BBAD141FE9B32F004BCDE0 /* Owner.swift in Sources */,
 				18BBAD311FEB3FAC004BCDE0 /* RepoDetailsViewModel.swift in Sources */,
+				187A42C51FEC6162002D3AB1 /* UILabelExtension.swift in Sources */,
 				18BBAD2A1FEADDB0004BCDE0 /* UIViewControllerExtension.swift in Sources */,
 				18BBAD171FE9B839004BCDE0 /* AppServerClient.swift in Sources */,
 				18820A311FE984B100C01B20 /* TrendingViewController.swift in Sources */,

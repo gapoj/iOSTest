@@ -29,7 +29,7 @@ class AppServerClient {
 }
 func getReadMe(owner: String, repoName: String,success:@escaping (String) -> Void, failure:@escaping (Error?) -> Void){
     let url = baseURL + "repos/\(owner)/\(repoName)/readme"
-    Alamofire.request(url, method: .get)
+    Alamofire.request(url)
         .validate()
         .responseJSON { response in
             switch response.result {
@@ -62,7 +62,7 @@ func getRepos(success:@escaping ( Array<Repository>) -> Void, failure:@escaping 
                       "page" : 0,
                       "per_page" :10
         ] as [String : Any]
-    Alamofire.request(baseURL + "search/repositories", method: .get, parameters: parameters)
+    Alamofire.request(baseURL + "search/repositories", parameters: parameters)
         .validate()
         .responseJSON { response in
             switch response.result {

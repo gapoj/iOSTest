@@ -15,7 +15,10 @@ class TrendingViewController: UITableViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        
         bindViewModel()
+        //so we don't see separators where there are no cells
+        tableView.tableFooterView = UIView()
         viewModel.getRepos()
     }
     
