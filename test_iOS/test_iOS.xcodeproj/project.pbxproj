@@ -8,6 +8,7 @@
 
 /* Begin PBXBuildFile section */
 		187A42C51FEC6162002D3AB1 /* UILabelExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 187A42C41FEC6162002D3AB1 /* UILabelExtension.swift */; };
+		187A42CB1FECF4F7002D3AB1 /* DateExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 187A42CA1FECF4F7002D3AB1 /* DateExtension.swift */; };
 		18820A2F1FE984B100C01B20 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 18820A2E1FE984B100C01B20 /* AppDelegate.swift */; };
 		18820A311FE984B100C01B20 /* TrendingViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 18820A301FE984B100C01B20 /* TrendingViewController.swift */; };
 		18820A341FE984B100C01B20 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 18820A321FE984B100C01B20 /* Main.storyboard */; };
@@ -19,7 +20,6 @@
 		18BBAD1F1FEAC6B8004BCDE0 /* RepoCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 18BBAD1E1FEAC6B8004BCDE0 /* RepoCell.swift */; };
 		18BBAD221FEAC8C3004BCDE0 /* RepoCellViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 18BBAD211FEAC8C3004BCDE0 /* RepoCellViewModel.swift */; };
 		18BBAD241FEACEFA004BCDE0 /* ReposTableViewViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 18BBAD231FEACEFA004BCDE0 /* ReposTableViewViewModel.swift */; };
-		18BBAD271FEAD03C004BCDE0 /* Bindable.swift in Sources */ = {isa = PBXBuildFile; fileRef = 18BBAD261FEAD03C004BCDE0 /* Bindable.swift */; };
 		18BBAD2A1FEADDB0004BCDE0 /* UIViewControllerExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 18BBAD291FEADDB0004BCDE0 /* UIViewControllerExtension.swift */; };
 		18BBAD2C1FEADE27004BCDE0 /* Alert.swift in Sources */ = {isa = PBXBuildFile; fileRef = 18BBAD2B1FEADE27004BCDE0 /* Alert.swift */; };
 		18BBAD2F1FEAFB26004BCDE0 /* RepoDetailsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 18BBAD2E1FEAFB26004BCDE0 /* RepoDetailsViewController.swift */; };
@@ -29,6 +29,7 @@
 
 /* Begin PBXFileReference section */
 		187A42C41FEC6162002D3AB1 /* UILabelExtension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UILabelExtension.swift; sourceTree = "<group>"; };
+		187A42CA1FECF4F7002D3AB1 /* DateExtension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DateExtension.swift; sourceTree = "<group>"; };
 		18820A2B1FE984B100C01B20 /* test_iOS.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = test_iOS.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		18820A2E1FE984B100C01B20 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		18820A301FE984B100C01B20 /* TrendingViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TrendingViewController.swift; sourceTree = "<group>"; };
@@ -42,7 +43,6 @@
 		18BBAD1E1FEAC6B8004BCDE0 /* RepoCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RepoCell.swift; sourceTree = "<group>"; };
 		18BBAD211FEAC8C3004BCDE0 /* RepoCellViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RepoCellViewModel.swift; sourceTree = "<group>"; };
 		18BBAD231FEACEFA004BCDE0 /* ReposTableViewViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ReposTableViewViewModel.swift; sourceTree = "<group>"; };
-		18BBAD261FEAD03C004BCDE0 /* Bindable.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Bindable.swift; sourceTree = "<group>"; };
 		18BBAD291FEADDB0004BCDE0 /* UIViewControllerExtension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UIViewControllerExtension.swift; sourceTree = "<group>"; };
 		18BBAD2B1FEADE27004BCDE0 /* Alert.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Alert.swift; sourceTree = "<group>"; };
 		18BBAD2E1FEAFB26004BCDE0 /* RepoDetailsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RepoDetailsViewController.swift; sourceTree = "<group>"; };
@@ -139,7 +139,6 @@
 		18BBAD251FEAD00D004BCDE0 /* Helpers */ = {
 			isa = PBXGroup;
 			children = (
-				18BBAD261FEAD03C004BCDE0 /* Bindable.swift */,
 				18BBAD2B1FEADE27004BCDE0 /* Alert.swift */,
 			);
 			path = Helpers;
@@ -150,6 +149,7 @@
 			children = (
 				18BBAD291FEADDB0004BCDE0 /* UIViewControllerExtension.swift */,
 				187A42C41FEC6162002D3AB1 /* UILabelExtension.swift */,
+				187A42CA1FECF4F7002D3AB1 /* DateExtension.swift */,
 			);
 			path = Extensions;
 			sourceTree = "<group>";
@@ -309,6 +309,7 @@
 				18BBAD311FEB3FAC004BCDE0 /* RepoDetailsViewModel.swift in Sources */,
 				187A42C51FEC6162002D3AB1 /* UILabelExtension.swift in Sources */,
 				18BBAD2A1FEADDB0004BCDE0 /* UIViewControllerExtension.swift in Sources */,
+				187A42CB1FECF4F7002D3AB1 /* DateExtension.swift in Sources */,
 				18BBAD171FE9B839004BCDE0 /* AppServerClient.swift in Sources */,
 				18820A311FE984B100C01B20 /* TrendingViewController.swift in Sources */,
 				18BBAD221FEAC8C3004BCDE0 /* RepoCellViewModel.swift in Sources */,
@@ -316,7 +317,6 @@
 				18BBAD131FE9B32F004BCDE0 /* Repository.swift in Sources */,
 				18BBAD2C1FEADE27004BCDE0 /* Alert.swift in Sources */,
 				18BBAD1F1FEAC6B8004BCDE0 /* RepoCell.swift in Sources */,
-				18BBAD271FEAD03C004BCDE0 /* Bindable.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

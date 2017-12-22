@@ -1,21 +1,31 @@
 PODS:
-  - Alamofire (4.5.0)
-  - MarkdownView (1.0.3)
-  - MBProgressHUD (1.0.0)
-  - SwiftyJSON (3.1.4)
+  - Alamofire (4.6.0)
+  - MarkdownView (1.1.0)
+  - MBProgressHUD (1.1.0)
+  - ReactiveCocoa (7.0.1):
+    - ReactiveSwift (~> 3.0)
+  - ReactiveSwift (3.0.0):
+    - Result (~> 3.2)
+  - Result (3.2.4)
+  - SwiftyJSON (4.0.0)
 
 DEPENDENCIES:
   - Alamofire
   - MarkdownView
   - MBProgressHUD
+  - ReactiveCocoa (~> 7.0.1)
+  - ReactiveSwift
   - SwiftyJSON
 
 SPEC CHECKSUMS:
-  Alamofire: f28cdffd29de33a7bfa022cbd63ae95a27fae140
-  MarkdownView: 95619a575e13cffa334528696e405142048dd951
-  MBProgressHUD: 4890f671c94e8a0f3cf959aa731e9de2f036d71a
-  SwiftyJSON: c2842d878f95482ffceec5709abc3d05680c0220
+  Alamofire: f41a599bd63041760b26d393ec1069d9d7b917f4
+  MarkdownView: 80db8e9a27a6c6cc22615e644e3e85c06065bab7
+  MBProgressHUD: e7baa36a220447d8aeb12769bf0585582f3866d9
+  ReactiveCocoa: a1b5d502d0d1534f9a72981a485b297b17127f83
+  ReactiveSwift: d9fe0db33c1aaabecb092e8de83cf52875c0de6f
+  Result: d2d07204ce72856f1fd9130bbe42c35a7b0fea10
+  SwiftyJSON: 070dabdcb1beb81b247c65ffa3a79dbbfb3b48aa
 
-PODFILE CHECKSUM: 0318a8db66d74b2a5d5542e71951766790565a08
+PODFILE CHECKSUM: 6a8b61aff705ab6d23449848cd1f8341c799841e
 
 COCOAPODS: 1.2.0

@@ -7,11 +7,14 @@
 //
 
 import UIKit
-import WebKit
 import MarkdownView
+import ReactiveCocoa
+import ReactiveSwift
+import MBProgressHUD
+import SafariServices
 
 class RepoDetailsViewController: UIViewController {
-
+    
     @IBOutlet weak var mdview: MarkdownView!
     @IBOutlet weak var projectDescriptionlbl: UILabel!
     @IBOutlet weak var ownerNameLbl: UILabel!
@@ -20,13 +23,12 @@ class RepoDetailsViewController: UIViewController {
     @IBOutlet weak var forksLbl: UILabel!
     
     var viewModel: RepoDetailsViewModel?
-   
+    
     override func viewDidLoad() {
         super.viewDidLoad()
-        viewModel?.getReadMe()
-        viewModel?.getAvatar()
+        
         bindViewModel()
-  }
+    }
     override func viewDidLayoutSubviews() {
         //crop the image to a circle
         ownerImage.layer.cornerRadius = ownerImage.frame.size.width/2
@@ -46,20 +48,52 @@ class RepoDetailsViewController: UIViewController {
         forksLbl.setGrayBorder()
         ownerNameLbl.text = viewModel?.ownerName
         projectDescriptionlbl.text = viewModel?.repoDescription
-        viewModel?.readmeStr.bindAndFire(){ [weak self](str) in
+         MBProgressHUD.showAdded(to: self.mdview, animated: true)
+        viewModel?.getReadMe().observe(on:QueueScheduler.main).on(starting: {}, started: { }, event:                               { signal in
+            print(signal)
+        }, failed: {error in
+            print(signal)
+        }, completed: { }, interrupted: { }, terminated: { }, disposed: { }, value: {[weak self](str) in
             DispatchQueue.main.async {
                 self?.mdview.load(markdown:str)
             }
-        }
-        viewModel?.ownerImage.bindAndFire() { [weak self](img) in
-            DispatchQueue.main.async {
-                self?.ownerImage.image = img
-                self?.ownerImage.setNeedsLayout()
-                self?.ownerImage.layoutIfNeeded()
-            }
-        }
+        }).start()
+       
+        viewModel?.getAvatar().observe(on:QueueScheduler.main).on(starting: {}, started: { }, event:                               { signal in
+            print(signal)
+        }, failed: {error in
+            print(signal)
+        }, completed: { }, interrupted: { }, terminated: { }, disposed: { }, value: { (img) in
+            self.ownerImage.image = img
+        }).start()
+        
         self.navigationItem.title = viewModel?.projectName
     }
-  
-
+    
+    func configureMarkDown(){
+        // called when rendering finished
+        mdview.onRendered = { [weak self] height in
+            if let view = self?.mdview {
+                MBProgressHUD.hide(for: view, animated: true)
+            }
+            
+            self?.mdview.setNeedsLayout()
+        }
+        
+        // called when user touch link
+        mdview.onTouchLink = { [weak self] request in
+            guard let url = request.url else { return false }
+            
+            if url.scheme == "file" {
+                return false
+            } else if url.scheme == "https" {
+                let safari = SFSafariViewController(url: url)
+                self?.navigationController?.pushViewController(safari, animated: true)
+                return false
+            } else {
+                return false
+            }
+        }
+    }
+    
 }

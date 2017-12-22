@@ -6,18 +6,19 @@
 //  Copyright © 2017 Guillermo Apoj. All rights reserved.
 //
 import UIKit
+import Result
+import ReactiveCocoa
+import ReactiveSwift
 
 class   RepoDetailsViewModel {
     private let imageSide = 20.0
     let appServerClient: AppServerClient = AppServerClient()
     var repo: Repository
-    var readmeStr = Bindable(String())
-    var ownerImage = Bindable(#imageLiteral(resourceName: "user-filled"))
     var projectName: String {
         return repo.fullName
     }
     var starsNumber:  NSMutableAttributedString {
-      
+        
         return createAttributedString(withImage: #imageLiteral(resourceName: "star"), andText: "\(repo.stargazers) Stars")
     }
     
@@ -25,7 +26,7 @@ class   RepoDetailsViewModel {
         return repo.desc
     }
     var forksNumber: NSMutableAttributedString {
-         return createAttributedString(withImage: #imageLiteral(resourceName: "fork"), andText: "\(repo.forks) Forks")
+        return createAttributedString(withImage: #imageLiteral(resourceName: "fork"), andText: "\(repo.forks) Forks")
     }
     var ownerName: String {
         return repo.owner.name
@@ -34,24 +35,15 @@ class   RepoDetailsViewModel {
         repo = repository
     }
     
-    func getReadMe(){
-        appServerClient.getReadMe(owner: ownerName, repoName: repo.reponame, success: { [weak self](string) in
-            self?.readmeStr.value = string
-        }) { (error) in
-            //In this chase I want the app to fail silently
-            print("error")
-        }
+    func getReadMe() -> SignalProducer<String,NSError> {
+        return appServerClient.getReadMe(owner: ownerName, repoName: repo.reponame)
         
     }
-    func getAvatar(){
-        appServerClient.getAvatar(url: repo.owner.imageURL, success: { [weak self](img) in
-            self?.ownerImage.value = img
-        }) { (error) in
-            //In this chase I want the app to fail silently
-            print("error")
-        }
+
+    func getAvatar() -> SignalProducer<UIImage,NSError>{
+        return appServerClient.getAvatar(url: repo.owner.imageURL)
+
     }
-    
     func createAttributedString(withImage image: UIImage, andText text: String ) -> NSMutableAttributedString {
         let attachment = NSTextAttachment()
         attachment.image = image

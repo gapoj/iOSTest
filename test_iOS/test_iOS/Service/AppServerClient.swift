@@ -8,28 +8,40 @@
 
 import Alamofire
 import SwiftyJSON
+import ReactiveCocoa
+import ReactiveSwift
 
 // MARK: - AppServerClient
 class AppServerClient {
     let baseURL = "https://api.github.com/"
     
-    func getAvatar(url: String,success:@escaping (UIImage) -> Void, failure:@escaping (Error?) -> Void){
-         Alamofire.request(url).responseData(completionHandler: { (data) in
-            guard data.error == nil else {
-                failure(data.error)
-                return
+    func getAvatar(url: String) -> SignalProducer<UIImage,NSError>
+    {
+        return SignalProducer { observer, disposable in
+
+                    Alamofire.request(url).responseData(completionHandler: { (data) in
+                        guard data.error == nil else {
+                            observer.send(value: #imageLiteral(resourceName: "user-filled"))
+                            observer.sendCompleted()
+                            return
+                        }
+                        if let str = UIImage(data: data.data!){
+                            observer.send(value:str)
+                          
+                        }else{
+                           
+                            observer.send(value:#imageLiteral(resourceName: "user-filled"))
+                        }
+                         observer.sendCompleted()
+                    })
             }
-            if let str = UIImage(data: data.data!){
-                success(str)
-            }else{
-                success(#imageLiteral(resourceName: "user-filled"))
-            }
-        })
+
   
 }
-func getReadMe(owner: String, repoName: String,success:@escaping (String) -> Void, failure:@escaping (Error?) -> Void){
+func getReadMe(owner: String, repoName: String) -> SignalProducer<String,NSError> {
     let url = baseURL + "repos/\(owner)/\(repoName)/readme"
-    Alamofire.request(url)
+     return SignalProducer { observer, disposable in
+        Alamofire.request(url)
         .validate()
         .responseJSON { response in
             switch response.result {
@@ -39,51 +51,64 @@ func getReadMe(owner: String, repoName: String,success:@escaping (String) -> Voi
                     let download = json["download_url"].stringValue
                     Alamofire.request(download).responseData(completionHandler: { (data) in
                         guard data.error == nil else {
-                            failure(data.error)
+                            observer.send(error: data.error! as NSError)
+                            observer.sendCompleted()
                             return
                         }
                         if let str = String(data: data.data!, encoding: String.Encoding.utf8){
-                            success(str)
+                           observer.send(value: str)
+                            observer.sendCompleted()
                         }else{
-                            success("# No Readme to show")
+                            observer.send(value:"# No Readme to show")
+                            observer.sendCompleted()
                         }
                     })
                 }
             case .failure(_):
-                failure(response.error)
+                observer.send(error: response.error! as NSError)
+                observer.sendCompleted()
             }
             
     }
+    }
 }
-func getRepos(success:@escaping ( Array<Repository>) -> Void, failure:@escaping (Error?) -> Void) {
-    let parameters = ["q": "created:>2017-12-01",
+    func getRepos(withQuery q: String) -> SignalProducer<Array<Repository>,NSError> {
+       //canceling previus requests, is only important here since we bring more data and we can do multiple requests
+        let sessionManager = Alamofire.SessionManager.default
+        sessionManager.session.getTasksWithCompletionHandler { dataTasks, uploadTasks, downloadTasks in
+            dataTasks.forEach { $0.cancel() }
+            uploadTasks.forEach { $0.cancel() }
+            downloadTasks.forEach { $0.cancel() }
+        }
+        let parameters = ["q": q,
                       "sort" : "stars",
                       "order" : "desc",
                       "page" : 0,
-                      "per_page" :10
+                      "per_page" :100
         ] as [String : Any]
-    Alamofire.request(baseURL + "search/repositories", parameters: parameters)
+    let url = baseURL + "search/repositories"
+    return SignalProducer { observer, disposable in
+        Alamofire.request(url , parameters: parameters)
         .validate()
         .responseJSON { response in
             switch response.result {
             case .success:
+                 var repos:Array = Array<Repository>()
                 if let value = response.result.value {
-                    // handle the results as JSON, without a bunch of nested if loops
-                    var clients:Array = Array<Repository>()
                     if  let data:[JSON] = JSON(value)["items"].array {
-                        
-                        for json in data
-                        {
-                            if let model = Repository(json: json){
-                                clients.append(model)
-                            }
+                        repos = data.flatMap {
+                             Repository(json: $0)
                         }
                     }
-                    success(clients)
+                   
                 }
+                 observer.send(value: repos)
+                 observer.sendCompleted()
             case .failure(_):
-                failure(response.error)
+                observer.send(error:response.error! as NSError)
+                observer.sendCompleted()
             }
+    }
     }
 }
 

@@ -8,36 +8,40 @@
 
 import UIKit
 import MBProgressHUD
+import ReactiveSwift
+import ReactiveCocoa
 
 class TrendingViewController: UITableViewController {
     let viewModel: ReposTableViewViewModel = ReposTableViewViewModel()
     
+    @IBOutlet weak var searchBar: UISearchBar!
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        
         bindViewModel()
         //so we don't see separators where there are no cells
         tableView.tableFooterView = UIView()
-        viewModel.getRepos()
+         MBProgressHUD.showAdded(to: tableView, animated: true)
     }
-    
     func bindViewModel() {
-        viewModel.repoCells.bindAndFire() { [weak self] _ in
+        viewModel.repoCells.signal.observe({ [weak self](signal) in
             self?.tableView?.reloadData()
-        }
-        
+        })
+
         viewModel.onShowError = { [weak self] alert in
             self?.presentSingleButtonDialog(alert: alert)
         }
-        
-        viewModel.showLoadingHud.bind() { visible in
-            if visible {
-                MBProgressHUD.showAdded(to: self.tableView, animated: true)
-            } else {
-                MBProgressHUD.hide(for: self.tableView, animated: true)
+        viewModel.showLoadingHud.signal.observe({ [weak self](show) in
+            if let validate = show.value,let tv = self?.tableView {
+                if  validate {
+                    MBProgressHUD.hide(for: tv, animated: true)//just in chase
+                    MBProgressHUD.showAdded(to: tv, animated: true)
+                } else {
+                    MBProgressHUD.hide(for: tv, animated: true)
+                }
             }
-        }
+        })
+        
     }
     
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
@@ -56,7 +60,12 @@ class TrendingViewController: UITableViewController {
         }
     }
 }
-
+// MARK: - UISearchBarDelegate
+extension TrendingViewController: UISearchBarDelegate {
+    func searchBar(_ searchBar: UISearchBar, textDidChange searchText: String) {
+        viewModel.searchText.value = searchText
+    }
+}
 // MARK: - UITableViewDelegate
 extension TrendingViewController {
     override func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {

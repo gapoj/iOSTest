@@ -8,6 +8,11 @@
 
 import UIKit
 
+enum RepoCellType {
+    case normal(cellViewModel: RepoCellViewModel)
+    case error(message: String)
+    case empty
+}
 protocol  RepoCellViewModel {
     var repoItem: Repository { get }
     var name: String { get }

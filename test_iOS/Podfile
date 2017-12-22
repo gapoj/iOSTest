@@ -7,4 +7,6 @@ target 'test_iOS' do
   pod 'SwiftyJSON'
   pod 'MBProgressHUD'
   pod 'MarkdownView'
+  pod 'ReactiveSwift'
+  pod 'ReactiveCocoa', '~> 7.0.1'
 end
